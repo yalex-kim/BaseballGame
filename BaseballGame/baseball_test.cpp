@@ -4,20 +4,23 @@
 
 using std::string;
 
-TEST(BaseballGame, ThrowExceptionWhenInputLengthIsUnmatched) {
+class BaseballGameTest : public ::testing::Test {
+public:
 	Baseball game;
-	EXPECT_THROW(
-		game.guess(string("12")),
-		length_error
-	);
-}
+	void assertIllegalArgument(const string& guessNumber) {
+		try {
+			game.guess(guessNumber);
+			FAIL();
+		}
+		catch (exception& e) {
 
-TEST(BaseballGame, ThrowExceptionWhenInvalidChar) {
-	Baseball game;
-	EXPECT_THROW(
-		game.guess(string("12s")),
-		invalid_argument
-	);
+		}
+	}
+};
+
+TEST_F(BaseballGameTest, ThrowExceptionWhenInvalidCase) {
+	assertIllegalArgument("12");
+	assertIllegalArgument("12s");
 }
 
 
