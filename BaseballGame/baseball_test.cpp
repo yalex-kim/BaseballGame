@@ -43,6 +43,11 @@ TEST_F(BaseballGameTest, ReturnStrikesAndBallsIfPartiallyMatched) {
 	EXPECT_FALSE(result.solved);
 	EXPECT_EQ(2, result.strikes);
 	EXPECT_EQ(0, result.balls);
+
+	result = game.guess("132");
+	EXPECT_FALSE(result.solved);
+	EXPECT_EQ(1, result.strikes);
+	EXPECT_EQ(2, result.balls);
 }
 
 

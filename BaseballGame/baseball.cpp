@@ -28,6 +28,9 @@ public:
 			if (guessNumber[i] == solution[i]) {
 				result.strikes++;
 			}
+			else if (solution.find(guessNumber[i]) != string::npos) {
+				result.balls++;
+			}
 		}
 		return result;
 	}
