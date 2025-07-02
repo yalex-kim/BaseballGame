@@ -12,23 +12,46 @@ class Baseball {
 public:
 	Baseball(const string& solution) : solution(solution) {
 		assertIllegalArgument(solution);
-		// Here we could store the solution if needed
 	}
 
 	GuessResult guess(const string& guessNumber) {
 		assertIllegalArgument(guessNumber);
-		// Assuming the solution is "123" for demonstration purposes
-		GuessResult result = {false, 0, 0};
-		if (guessNumber == solution) {
-			result = { true, 3, 0 };
-		}
+		initResult();
+		countStrike(guessNumber);
+		countBall(guessNumber);
+		updateResolve();
+
 		return result;
+	}
+
+	void initResult()
+	{
+		result = { false, 0, 0 };
+	}
+
+	void updateResolve()
+	{
+		result.solved = (result.strikes == 3);
+	}
+	void countBall(const std::string& guessNumber)
+	{
+		for (size_t i = 0; i < guessNumber.length(); ++i) {
+			if (guessNumber[i] != solution[i] && solution.find(guessNumber[i]) != string::npos) {
+				result.balls++;
+			}
+		}
+	}
+	void countStrike(const std::string& guessNumber)
+	{
+		for (size_t i = 0; i < guessNumber.length(); ++i) {
+			if (guessNumber[i] == solution[i]) {
+				result.strikes++;
+			}
+		}
 	}
 private:
 	string solution;
-
-	// Helper function to validate the input
-	// Throws exceptions if the input is invalid
+	GuessResult result = { false, 0, 0 };
 
 	void assertIllegalArgument(const std::string& guessNumber)
 	{
