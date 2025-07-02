@@ -1,9 +1,17 @@
 #include<gmock/gmock.h>
+#include<string>
 #include "baseball.cpp"
 
-TEST(BaseballGame, TryGameTest) {
-	EXPECT_EQ(1, 1);
+using std::string;
+
+TEST(BaseballGame, ThrowExceptionWhenInputLengthIsUnmatched) {
+	Baseball game;
+	EXPECT_THROW(
+		game.guess(string("12")),
+		length_error
+	);
 }
+
 
 int main(int argc, char **argv) {
 	::testing::InitGoogleMock(&argc, argv);
