@@ -2,12 +2,34 @@
 
 using namespace std;
 
+struct GuessResult {
+	bool solved;
+	int strikes;
+	int balls;
+};
+
 class Baseball {
 public:
-	void guess(const string& guessNumber) {
-		assertIllegalArgument(guessNumber);
-
+	Baseball(const string& solution) : solution(solution) {
+		assertIllegalArgument(solution);
+		// Here we could store the solution if needed
 	}
+
+	GuessResult guess(const string& guessNumber) {
+		assertIllegalArgument(guessNumber);
+		// Assuming the solution is "123" for demonstration purposes
+		GuessResult result = {false, 0, 0};
+		if (guessNumber == solution) {
+			result = { true, 3, 0 };
+		}
+		return result;
+	}
+private:
+	string solution;
+
+	// Helper function to validate the input
+	// Throws exceptions if the input is invalid
+
 	void assertIllegalArgument(const std::string& guessNumber)
 	{
 		if (guessNumber.length() != 3) {
