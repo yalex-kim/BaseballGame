@@ -20,7 +20,14 @@ public:
 		// Assuming the solution is "123" for demonstration purposes
 		GuessResult result = {false, 0, 0};
 		if (guessNumber == solution) {
-			result = { true, 3, 0 };
+			result.solved = true;
+			result.strikes = 3; // All digits match
+			return result;
+		}
+		for (size_t i = 0; i < guessNumber.length(); ++i) {
+			if (guessNumber[i] == solution[i]) {
+				result.strikes++;
+			}
 		}
 		return result;
 	}

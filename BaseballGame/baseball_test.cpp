@@ -31,6 +31,20 @@ TEST_F(BaseballGameTest, ReturnSolvedResultIfMatchedNumber) {
 	EXPECT_EQ(0, result.balls);
 }
 
+TEST_F(BaseballGameTest, ReturnZeroStrikesAndBallsIfNotMatched) {
+	GuessResult result = game.guess("456");
+	EXPECT_FALSE(result.solved);
+	EXPECT_EQ(0, result.strikes);
+	EXPECT_EQ(0, result.balls);
+}
+
+TEST_F(BaseballGameTest, ReturnStrikesAndBallsIfPartiallyMatched) {
+	GuessResult result = game.guess("124");
+	EXPECT_FALSE(result.solved);
+	EXPECT_EQ(2, result.strikes);
+	EXPECT_EQ(0, result.balls);
+}
+
 
 int main(int argc, char **argv) {
 	::testing::InitGoogleMock(&argc, argv);
