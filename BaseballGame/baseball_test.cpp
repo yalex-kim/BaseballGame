@@ -6,7 +6,8 @@ using std::string;
 
 class BaseballGameTest : public ::testing::Test {
 public:
-	Baseball game{"123"};
+	const string solution = "123";
+	Baseball game{ solution };
 	void assertIllegalArgument(const string& guessNumber) {
 		try {
 			game.guess(guessNumber);
@@ -30,17 +31,11 @@ TEST_F(BaseballGameTest, ThrowExceptionWhenInvalidCase) {
 }
 
 TEST_F(BaseballGameTest, ReturnSolvedResultIfMatchedNumber) {
-	GuessResult result = game.guess("123");
-	EXPECT_TRUE(result.solved);
-	EXPECT_EQ(3, result.strikes);
-	EXPECT_EQ(0, result.balls);
+	checkGuessResult({ true, 3, 0 }, game.guess(solution));
 }
 
 TEST_F(BaseballGameTest, ReturnZeroStrikesAndBallsIfNotMatched) {
-	GuessResult result = game.guess("456");
-	EXPECT_FALSE(result.solved);
-	EXPECT_EQ(0, result.strikes);
-	EXPECT_EQ(0, result.balls);
+	checkGuessResult({ false, 0, 0 }, game.guess("456"));
 }
 
 TEST_F(BaseballGameTest, ReturnStrikesAndBallsIfPartiallyMatched) {
