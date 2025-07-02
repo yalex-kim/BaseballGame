@@ -16,6 +16,11 @@ public:
 
 		}
 	}
+	void checkGuessResult(const GuessResult& expected, const GuessResult& actual) {
+		EXPECT_EQ(expected.solved, actual.solved);
+		EXPECT_EQ(expected.strikes, actual.strikes);
+		EXPECT_EQ(expected.balls, actual.balls);
+	}
 };
 
 TEST_F(BaseballGameTest, ThrowExceptionWhenInvalidCase) {
@@ -39,15 +44,8 @@ TEST_F(BaseballGameTest, ReturnZeroStrikesAndBallsIfNotMatched) {
 }
 
 TEST_F(BaseballGameTest, ReturnStrikesAndBallsIfPartiallyMatched) {
-	GuessResult result = game.guess("124");
-	EXPECT_FALSE(result.solved);
-	EXPECT_EQ(2, result.strikes);
-	EXPECT_EQ(0, result.balls);
-
-	result = game.guess("132");
-	EXPECT_FALSE(result.solved);
-	EXPECT_EQ(1, result.strikes);
-	EXPECT_EQ(2, result.balls);
+	checkGuessResult({ false, 2, 0 }, game.guess("124"));
+	checkGuessResult({ false, 1, 2 }, game.guess("132"));
 }
 
 
