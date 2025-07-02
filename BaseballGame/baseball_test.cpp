@@ -46,6 +46,7 @@ TEST_F(BaseballGameTest, ReturnZeroStrikesAndBallsIfNotMatched) {
 TEST_F(BaseballGameTest, ReturnStrikesAndBallsIfPartiallyMatched) {
 	checkGuessResult({ false, 2, 0 }, game.guess("124"));
 	checkGuessResult({ false, 1, 2 }, game.guess("132"));
+	checkGuessResult({ false, 0, 2 }, game.guess("612"));
 }
 
 
